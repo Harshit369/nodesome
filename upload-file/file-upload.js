@@ -13,7 +13,7 @@ server.createServer(function(request,response){
 	request.on('data',function(data){
 		uploaded += data.length;
 		var percent = (uploaded/filesize)*100;
-		response.write("uploaded: " + parseInt(percent,1) + "%\n");
+		response.write("uploaded: " + parseInt(percent,10) + "%\n");
 	})
 
 	request.on('end',function(){
