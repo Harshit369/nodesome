@@ -21,7 +21,7 @@ io.sockets.on('connection',function(client){
 	socket.on('adduser',function(username){
 		socket.username = username;
 
-		socket.chatroom = 'room1'
+		socket.chatroom = 'room1';
 
 		usernames[username] = username;
 
