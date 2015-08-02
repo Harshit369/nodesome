@@ -31,11 +31,11 @@
 			socket.emit('switchrooms',room);
 		}
 
-		$("#datasend").click(){
+		$("#datasend").click(function(){
 			var message = $("#data").val();
 			$("#data").val('');
 			socket.emit('sendmessage',message);
-		}
+		});
 
 		$('#data').keypress(function(e) {
 			if(e.which == 13) {
