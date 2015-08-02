@@ -7,9 +7,9 @@ var io = socket.listen(server);
 
 server.listen(8080);
 
-app.get('/', function(req,res)){
+app.get('/', function(req,res){
 	res.sendFile(__dirname + 'index.html');
-}
+});
 
 var usernames = {};
 
@@ -18,7 +18,7 @@ var chatrooms = ['room1','room2'];
 io.sockets.on('connection',function(client){
 	console.log("client connected....");
 
-	socket.on('adduser',function(username)){
+	socket.on('adduser',function(username){
 		socket.username = username;
 
 		socket.chatroom = 'room1'
@@ -32,7 +32,7 @@ io.sockets.on('connection',function(client){
 		socket.broadcast.to('room1').emit('updatechat','SERVER',username+" has connected to this room");
 
 		socket.emit('updaterooms',chatrooms,'room1');
-	}
+	});
 
 	socket.on('sendchat',function(msg){
 		io.socket.in(socket.room).emit('sendchat',socket.username,msg);
