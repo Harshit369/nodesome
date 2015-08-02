@@ -15,7 +15,7 @@ var usernames = {};
 
 var chatrooms = ['room1','room2'];
 
-io.sockets.on('connection',function(client){
+io.sockets.on('connection',function(socket){
 	console.log("client connected....");
 
 	socket.on('adduser',function(username){
