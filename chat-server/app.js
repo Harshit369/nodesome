@@ -35,7 +35,7 @@ io.sockets.on('connection',function(socket){
 	});
 
 	socket.on('sendchat',function(msg){
-		io.socket.in(socket.room).emit('sendchat',socket.username,msg);
+		io.sockets.in(socket.room).emit('sendchat',socket.username,msg);
 	});
 
 	socket.on('switchrooms',function(newroom){
@@ -57,7 +57,7 @@ io.sockets.on('connection',function(socket){
 	socket.on('disconnect',function(){
 		delete usernames[socket.username];
 
-		io.socket.emit('updateuser',usernames);
+		io.sockets.emit('updateuser',usernames);
 
 		socket.broadcast.emit('updatechat','SERVER', socket.username+" has disconnected");
 
