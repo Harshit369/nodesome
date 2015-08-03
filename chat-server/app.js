@@ -25,7 +25,7 @@ io.sockets.on('connection',function(socket){
 
 		usernames[username] = username;
 
-		socket.join(room1);
+		socket.join('room1');
 
 		socket.emit('updatechat','SERVER',"Talking in room1");
 
