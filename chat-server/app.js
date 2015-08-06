@@ -13,7 +13,7 @@ app.get('/', function(req,res){
 
 var usernames = {};
 
-var chatrooms = ['room1','room2'];
+var chatrooms = ['Room1','Room2'];
 
 io.sockets.on('connection',function(socket){
 	console.log("client connected....");
