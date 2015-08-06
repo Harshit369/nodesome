@@ -18,7 +18,7 @@
 			$("#rooms").empty();
 			$.each(rooms,function(key,value){
 				if(value == current_room){
-					$("#rooms").append('<div>'+value+'</div>');
+					$("#rooms").append('<div style="background-color:black;color:white;">'+value+'</div>');
 				}
 
 				else{
@@ -31,17 +31,23 @@
 			socket.emit('switchrooms',room);
 		}
 
-		$("#datasend").click(function(){
-			var message = $("#data").val();
-			$("#data").val('');
-			socket.emit('sendchat',message);
-		});
+		$(function(){
 
-		$('#data').keypress(function(e) {
-			if(e.which == 13) {
-				$(this).blur();
-				$('#datasend').focus().click();
-			}
+
+
+			$("#datasend").click(function(){
+				var message = $("#data").val();
+				$("#data").val(' ');
+				socket.emit('sendchat',message);
+			});
+
+			$('#data').keypress(function(e) {
+				if(e.which == 13) {
+					$(this).blur();
+					$('#datasend').focus().click();
+				}
+			});
+			
 		});
 	</script>
 	<title>3$M chat</title>
