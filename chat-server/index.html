@@ -11,7 +11,7 @@
 		});
 
 		socket.on('updatechat',function(username,data){
-			$("#conversation").append('<b>'+username+':</b>' + data);
+			$("#conversation").append('<b>'+username+':</b>' + data + '<br>');
 		});
 
 		socket.on('updaterooms',function(rooms,current_room){
@@ -37,7 +37,7 @@
 
 			$("#datasend").click(function(){
 				var message = $("#data").val();
-				alert(message);
+				//alert(message);
 				$("#data").val(' ');
 				socket.emit('sendchat',message);
 			});

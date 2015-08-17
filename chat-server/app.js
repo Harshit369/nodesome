@@ -35,7 +35,8 @@ io.sockets.on('connection',function(socket){
 	});
 
 	socket.on('sendchat',function(msg){
-		io.sockets.in(socket.room).emit('sendchat',socket.username,msg);
+		console.log(msg);
+		io.sockets.in(socket.chatroom).emit('updatechat',socket.username,msg);
 	});
 
 	socket.on('switchrooms',function(newroom){
