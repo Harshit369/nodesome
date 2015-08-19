@@ -13,7 +13,7 @@ app.get('/', function(req,res){
 
 var usernames = {};
 
-var chatrooms = ['Room1','Room2'];
+var chatrooms = ['Introduction','SomeRoom'];
 
 io.sockets.on('connection',function(socket){
 	console.log("client connected....");
@@ -21,17 +21,17 @@ io.sockets.on('connection',function(socket){
 	socket.on('adduser',function(username){
 		socket.username = username;
 
-		socket.chatroom = 'room1';
+		socket.chatroom = 'Introduction';
 
 		usernames[username] = username;
 
-		socket.join('room1');
+		socket.join('Introduction');
 
-		socket.emit('updatechat','SERVER',"Talking in room1");
+		socket.emit('updatechat','SERVER',"Talking in "+socket.chatroom);
 
-		socket.broadcast.to('room1').emit('updatechat','SERVER',username+" has connected to this room");
+		socket.broadcast.to('room1').emit('updatechat','SERVER',username+" has connected to "+socket.chatroom);
 
-		socket.emit('updaterooms',chatrooms,'room1');
+		socket.emit('updaterooms',chatrooms,socket.chatroom);
 	});
 
 	socket.on('sendchat',function(msg){

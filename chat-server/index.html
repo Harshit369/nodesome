@@ -3,6 +3,8 @@
 <head>
 	<script src="/socket.io/socket.io.js"></script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		var socket = io.connect("http://localhost:8080");
 
@@ -27,14 +29,13 @@
 			});
 		});
 
+
+		//jquery functions for on click demands=============================================================================
 		function switchRoom(room){
 			socket.emit('switchrooms',room);
 		}
 
 		$(function(){
-
-
-
 			$("#datasend").click(function(){
 				var message = $("#data").val();
 				//alert(message);
@@ -51,19 +52,53 @@
 
 		});
 	</script>
+	<style type="text/css">
+
+		body {
+			margin: 0px;
+			padding: 0px;
+		}
+
+		.room-wrapper {
+			position: fixed;
+			width:20%;
+			height: 100%;
+			background-color: #eee;
+			overflow:scroll-y;
+		}
+
+		.conversation-wrapper{
+			position: absolute;
+			top: 20%;
+			left: 20%;
+			width:80%;
+			height:20px;
+			overflow:scroll-y;
+			padding:20px;
+		}
+
+		#conversation {
+			padding: 0px;
+		}
+
+	</style>
 	<title>3$M chat</title>
 
 	</head>
 
 	<body>
-		<div style="float:left;width:100px;border-right:1px solid black;height:300px;padding:10px;overflow:scroll-y;">
+		<div class="room-wrapper container">
 			<b>ROOMS</b>
-			<div id="rooms"></div>
+			<div id="rooms">
+				<!-- rooms will be added here -->
+			</div>
 		</div>
-		<div style="float:left;width:300px;height:250px;overflow:scroll-y;padding:10px;">
+		<div class="conversation-wrapper container">
 			<div id="conversation"></div>
-			<input id="data" style="width:200px;" />
-			<input type="button" id="datasend" value="send" />
+			<div class="msg-inputbox">
+				<input id="data" type="text" />
+				<input type="button" id="datasend" value="send" />
+			</div>
 		</div>
 	</body>
 </html>
