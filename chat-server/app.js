@@ -29,13 +29,13 @@ io.sockets.on('connection',function(socket){
 
 		socket.emit('updatechat','SERVER',"Talking in "+socket.chatroom);
 
-		socket.broadcast.to('room1').emit('updatechat','SERVER',username+" has connected to "+socket.chatroom);
+		socket.broadcast.to(socket.chatroom).emit('updatechat','SERVER',username+" has joined");
 
 		socket.emit('updaterooms',chatrooms,socket.chatroom);
 	});
 
 	socket.on('sendchat',function(msg){
-		console.log(msg);
+		//console.log(msg);
 		io.sockets.in(socket.chatroom).emit('updatechat',socket.username,msg);
 	});
 
@@ -50,7 +50,7 @@ io.sockets.on('connection',function(socket){
 
 		socket.chatroom = newroom;
 
-		socket.broadcast.to(socket.chatroom).emit('updatechat','SERVER',socket.username + " has joinned this room");
+		socket.broadcast.to(socket.chatroom).emit('updatechat','SERVER',socket.username + " has joined");
 
 		socket.emit('updaterooms',chatrooms,newroom);
 	});
@@ -63,5 +63,25 @@ io.sockets.on('connection',function(socket){
 		socket.broadcast.emit('updatechat','SERVER', socket.username+" has disconnected");
 
 		socket.leave(socket.chatroom);
+	});
+
+	socket.on('addnewroom',function(name){
+		chatrooms.push(name);
+
+		socket.leave(socket.chatroom);
+
+		socket.join(name);
+
+		socket.broadcast.to(socket.chatroom).emit('updatechat','SERVER',socket.username+" has left");
+
+		socket.chatroom = name;
+
+		socket.emit('updaterooms',chatrooms,socket.chatroom);
+
+		socket.emit('updatechat','SERVER',"Talking in "+socket.chatroom);
+
+		socket.broadcast.to(socket.chatroom).emit('updatechat','SERVER',socket.username+" has joined");
+
+		io.sockets.emit('updatechat','SERVER',name + " has been created by " + socket.username);
 	});
 });

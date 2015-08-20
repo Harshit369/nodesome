@@ -50,6 +50,10 @@
 				}
 			});
 
+			$('#newroom').click(function(){
+				socket.emit('addnewroom',prompt("What's new room title"));
+			});
+
 		});
 	</script>
 	<style type="text/css">
@@ -60,6 +64,7 @@
 		}
 
 		.room-wrapper {
+			text-align: center;
 			position: fixed;
 			width:20%;
 			height: 100%;
@@ -92,6 +97,7 @@
 			<div id="rooms">
 				<!-- rooms will be added here -->
 			</div>
+			<input type="button" id="newroom" value="Create new Room" />
 		</div>
 		<div class="conversation-wrapper container">
 			<div id="conversation"></div>
