@@ -82,6 +82,6 @@ io.sockets.on('connection',function(socket){
 
 		socket.broadcast.to(socket.chatroom).emit('updatechat','SERVER',socket.username+" has joined");
 
-		io.sockets.emit('updatechat','SERVER',name + " has been created by " + socket.username);
+		socket.broadcast.to('Introduction').emit('updatechat','SERVER',name + " has been created by " + socket.username);
 	});
 });
