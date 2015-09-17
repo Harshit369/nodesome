@@ -1,9 +1,16 @@
+//requirements
 var socket = require('socket.io');
 var express = require('express');
 var http = require('http');
+var redis = require('redis');
+//--------------------------
+
 var app = express();
 var server = http.createServer(app);
 var io = socket.listen(server);
+var userset = redis.createClient();
+
+
 
 server.listen(8080);
 
@@ -13,7 +20,7 @@ app.get('/', function(req,res){
 
 var usernames = {};
 
-var chatrooms = ['Introduction','SomeRoom'];
+var chatrooms = ['Introduction'];
 
 io.sockets.on('connection',function(socket){
 	console.log("client connected....");
