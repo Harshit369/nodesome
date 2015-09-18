@@ -2,13 +2,13 @@
 var socket = require('socket.io');
 var express = require('express');
 var http = require('http');
-var redis = require('redis');
+//var redis = require('redis');
 //--------------------------
 
 var app = express();
 var server = http.createServer(app);
 var io = socket.listen(server);
-var userset = redis.createClient();
+//var userset = redis.createClient();
 
 
 
@@ -18,19 +18,28 @@ app.get('/', function(req,res){
 	res.sendFile(__dirname + '/index.html');
 });
 
-var usernames = {};
+var usernames = [];
 
 var chatrooms = ['Introduction'];
 
 io.sockets.on('connection',function(socket){
 	console.log("client connected....");
 
+	socket.on('checkname',function(name){
+		for(var i=0;i<usernames.length;i++){
+			if (usernames[i]==name) {
+				return 1;
+			};
+		}
+		return 0;
+	});
+
 	socket.on('adduser',function(username){
 		socket.username = username;
 
 		socket.chatroom = 'Introduction';
 
-		usernames[username] = username;
+		usernames.push(username);
 
 		socket.join('Introduction');
 
@@ -63,7 +72,8 @@ io.sockets.on('connection',function(socket){
 	});
 
 	socket.on('disconnect',function(){
-		delete usernames[socket.username];
+		var index = usernames.indexOf(socket.username);
+		usernames.splice(index, 1);
 
 		io.sockets.emit('updateuser',usernames);
 

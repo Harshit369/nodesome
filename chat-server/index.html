@@ -9,7 +9,20 @@
 		var socket = io.connect("http://localhost:8080");
 
 		socket.on('connect',function(){
-			socket.emit('adduser',prompt("what is your Username?"));
+			var name = "";
+
+			while(!name){
+				name = prompt("Are you trying te be a ghost man or what?");
+			}
+
+			var emit = socket.emit('checkname',name);
+
+			while(!emit){
+				name = prompt("stop copying :), choose some unique one.");
+				emit = socket.emit('checkname',name);
+			}
+
+			socket.emit('adduser',name);
 		});
 
 		socket.on('updatechat',function(username,data){
