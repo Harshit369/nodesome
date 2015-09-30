@@ -28,9 +28,11 @@ io.sockets.on('connection',function(socket){
 	socket.on('checkname',function(name){
 		for(var i=0;i<usernames.length;i++){
 			if (usernames[i]==name) {
+				console.log("name found");
 				return 1;
 			};
 		}
+		console.log("name not found");
 		return 0;
 	});
 
