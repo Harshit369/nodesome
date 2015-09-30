@@ -24,13 +24,22 @@ var chatrooms = ['Introduction'];
 
 io.sockets.on('connection',function(socket){
 	console.log("client connected....");
+	var flag = 0;
 
 	socket.on('checkname',function(name){
 		for(var i=0;i<usernames.length;i++){
 			if (usernames[i]==name) {
 				console.log("name found");
-				return 1;
-			};
+				flag = 1;
+				break;
+			}
+		}
+
+		if(flag == 1){
+			socket.emit('chooseuniquename');
+		}
+		else{
+			socket.emit('correctname',name);
 		}
 		console.log("name not found");
 		return 0;

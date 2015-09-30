@@ -17,15 +17,32 @@
 				name = prompt("Are you trying te be a ghost man or what?");
 			}
 
-			var emit = socket.emit('checkname',name);
+			socket.emit('checkname',name);
 
-			while(!emit){
+			/*while(!emit){
+				console.log("checking name");
 				name = prompt("stop copying :), choose some unique one.");
 				emit = socket.emit('checkname',name);
 			}
 
-			socket.emit('adduser',name);
+			socket.emit('adduser',name);*/
 		});
+
+		socket.on('chooseuniquename',function(){
+			var name = "";
+
+			name = prompt("stop copying :), choose some unique name.");
+
+			while(!name){
+				name = prompt("Are you trying te be a ghost man or what?");
+			}
+
+			socket.emit('checkname',name);
+		});
+
+		socket.on('correctname',function(name){
+			socket.emit('adduser',name);
+		})
 
 		socket.on('updatechat',function(username,data){
 			$("#conversation").append('<b>'+username+':</b>' + data + '<br>');
