@@ -7,13 +7,15 @@ var app = express();
 
 //----------------------------------------------------
 
-app.get('/:username',function(req,response){
+app.get('/tweets/:username',function(req,response){
 	var username = req.params.username;
 
 	options = {
 		method: "https:",
-		host: 'api.twitter.com'
-	};
+		host: 'api.twitter.com',
+		pathname: '1/statuses/user_timeline.json',
+		query: { screen_name: username,count: 10}
+	}
 
 	var twitterurl = url.format(options);
 
