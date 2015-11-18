@@ -12,8 +12,8 @@ app.get('/:username',function(req,response){
 
 	options = {
 		method: "https:",
-		host: 'facebook.com'
-	}
+		host: 'api.twitter.com'
+	};
 
 	var twitterurl = url.format(options);
 
